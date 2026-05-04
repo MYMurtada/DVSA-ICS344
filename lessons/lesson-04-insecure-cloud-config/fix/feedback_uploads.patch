@@ -1,0 +1,13 @@
+--- a/feedback_uploads.py
++++ b/feedback_uploads.py
+@@ -1,8 +1,8 @@
+ def is_safe(s):
+-    # if s.find(";") > -1 or s.find("'") > -1 or s.find("|") > -1:
+-    #    return False
+-    return True
++    if s.find(";") > -1 or s.find("'") > -1 or s.find("|") > -1:
++        return False
++    return True
+ 
+ def process_file(filename):
+     if not is_safe(filename):

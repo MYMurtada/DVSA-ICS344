@@ -1,0 +1,15 @@
+{
+  "Comment": "Restrict DVSA-ORDER-MANAGER so it cannot invoke DVSA-ADMIN-GET-RECEIPT.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowInvokeOnlyNonAdminLambdas",
+      "Effect": "Allow",
+      "Action": "lambda:InvokeFunction",
+      "Resource": [
+        "arn:aws:lambda:us-east-1:*:function:DVSA-*",
+        "!arn:aws:lambda:us-east-1:*:function:DVSA-ADMIN-*"
+      ]
+    }
+  ]
+}

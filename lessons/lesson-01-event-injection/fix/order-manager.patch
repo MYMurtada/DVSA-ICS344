@@ -1,0 +1,17 @@
+--- a/order-manager.js
++++ b/order-manager.js
+@@ -1,8 +1,9 @@
+-const serialize = require('node-serialize');  // DANGER: unserialize() evals _$$ND_FUNC$$_ payloads
++// node-serialize removed — its unserialize() runs eval() on attacker-controlled input.
++// Replacement: JSON.parse() produces plain data and never evaluates code.
+ 
+ exports.handler = async (event, context) => {
+-    var req     = serialize.unserialize(event.body);    // VULN: code execution
+-    var headers = serialize.unserialize(event.headers); // VULN: same eval path
++    var req     = JSON.parse(event.body);  // SAFE: pure data, no eval
++    var headers = event.headers;           // SAFE: already a plain object from API Gateway
+ 
++    // Strict allowlist — any unrecognised action is rejected immediately
+     const ALLOWED_ACTIONS = ['orders', 'get', 'new', 'update', 'billing', 'complete', 'upload'];
+     if (!ALLOWED_ACTIONS.includes(req.action)) {
+         return { statusCode: 400, body: JSON.stringify({ message: 'Invalid action' }) };

@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LambdaWritefeedbackStatement",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<YOUR-ACCOUNT-ID>:root"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::dvsa-feedback-bucket-<YOUR-ACCOUNT-ID>-us-east-1/*"
+    }
+  ]
+}
